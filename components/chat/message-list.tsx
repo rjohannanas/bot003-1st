@@ -31,7 +31,7 @@ export function MessageList({ messages, streamingContent, isStreaming }: Message
           alt="Bot003 Seteloee"
           width={64}
           height={64}
-          className="rounded-2xl"
+          className="rounded-2xl object-cover"
         />
         <div>
           <h2 className="text-lg font-semibold">Bienvenido a Bot003 Seteloee</h2>
@@ -52,13 +52,13 @@ export function MessageList({ messages, streamingContent, isStreaming }: Message
           ))}
 
           {isStreaming && streamingContent && (
-            <div className="flex gap-3">
+            <div className="flex items-start gap-3">
               <Image
                 src="/robot-icon.jpg"
                 alt="Bot003"
                 width={32}
                 height={32}
-                className="rounded-lg shrink-0"
+                className="rounded-lg shrink-0 object-cover"
               />
               <div className="flex-1 space-y-2">
                 <div className="prose prose-sm dark:prose-invert max-w-none rounded-lg bg-muted p-3">
@@ -81,7 +81,7 @@ function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === "user"
 
   return (
-    <div className={cn("flex gap-3", isUser && "flex-row-reverse")}>
+    <div className={cn("flex items-start gap-3", isUser && "flex-row-reverse")}>
       {isUser ? (
         <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
           <User className="size-4" />
@@ -92,7 +92,7 @@ function MessageBubble({ message }: { message: Message }) {
           alt="Bot003"
           width={32}
           height={32}
-          className="rounded-lg shrink-0"
+          className="rounded-lg shrink-0 object-cover"
         />
       )}
 
