@@ -40,7 +40,7 @@ export function useChatStream() {
 
       const attemptStream = async (authToken: string): Promise<boolean> => {
         try {
-          const response = await fetch(`${API_URL}/chat`, {
+          const response = await fetch(`${API_URL}/api/chat/stream`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
