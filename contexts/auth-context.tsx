@@ -45,9 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    console.log("[v0] Setting up auth state listener")
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      console.log("[v0] Auth state changed:", firebaseUser ? "user logged in" : "no user")
       setUser(firebaseUser)
       if (firebaseUser) {
         const idToken = await firebaseUser.getIdToken()
@@ -56,7 +54,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setToken(null)
       }
       setLoading(false)
-      console.log("[v0] Loading set to false")
     })
 
     return () => unsubscribe()
