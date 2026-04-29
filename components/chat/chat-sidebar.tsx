@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { MessageSquarePlus, Trash2, LogOut } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
@@ -60,9 +61,13 @@ export function ChatSidebar({
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-2 px-2 py-1">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
-            B3
-          </div>
+          <Image
+            src="/robot-icon.jpg"
+            alt="Bot003 Seteloee"
+            width={32}
+            height={32}
+            className="rounded-lg"
+          />
           <div className="flex flex-col">
             <span className="text-sm font-semibold">Bot003 Seteloee</span>
             <span className="text-xs text-muted-foreground">Asistente IA</span>

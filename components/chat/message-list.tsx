@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { User, Bot } from "lucide-react"
+import { User } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { SourceCards } from "./source-cards"
 import type { Message } from "@/types/chat"
@@ -25,9 +26,13 @@ export function MessageList({ messages, streamingContent, isStreaming }: Message
   if (messages.length === 0 && !isStreaming) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
-        <div className="flex size-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-          <Bot className="size-8" />
-        </div>
+        <Image
+          src="/robot-icon.jpg"
+          alt="Bot003 Seteloee"
+          width={64}
+          height={64}
+          className="rounded-2xl"
+        />
         <div>
           <h2 className="text-lg font-semibold">Bienvenido a Bot003 Seteloee</h2>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -48,9 +53,13 @@ export function MessageList({ messages, streamingContent, isStreaming }: Message
 
           {isStreaming && streamingContent && (
             <div className="flex gap-3">
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Bot className="size-4" />
-              </div>
+              <Image
+                src="/robot-icon.jpg"
+                alt="Bot003"
+                width={32}
+                height={32}
+                className="rounded-lg shrink-0"
+              />
               <div className="flex-1 space-y-2">
                 <div className="prose prose-sm dark:prose-invert max-w-none rounded-lg bg-muted p-3">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -73,16 +82,19 @@ function MessageBubble({ message }: { message: Message }) {
 
   return (
     <div className={cn("flex gap-3", isUser && "flex-row-reverse")}>
-      <div
-        className={cn(
-          "flex size-8 shrink-0 items-center justify-center rounded-lg",
-          isUser
-            ? "bg-muted text-muted-foreground"
-            : "bg-primary text-primary-foreground"
-        )}
-      >
-        {isUser ? <User className="size-4" /> : <Bot className="size-4" />}
-      </div>
+      {isUser ? (
+        <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+          <User className="size-4" />
+        </div>
+      ) : (
+        <Image
+          src="/robot-icon.jpg"
+          alt="Bot003"
+          width={32}
+          height={32}
+          className="rounded-lg shrink-0"
+        />
+      )}
 
       <div className={cn("flex-1 space-y-2", isUser && "flex flex-col items-end")}>
         <div
