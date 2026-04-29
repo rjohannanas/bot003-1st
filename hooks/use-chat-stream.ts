@@ -94,16 +94,19 @@ export function useChatStream() {
 
                 switch (event.type) {
                   case "status":
-                    options.onStatus(mapStatus(event.data))
+                    // event.message contiene el estado (ej: "Analizando consulta...")
+                    options.onStatus(mapStatus(event.message))
                     break
                   case "sources":
-                    options.onSources(event.data)
+                    // event.docs contiene el array de documentos
+                    options.onSources(event.docs || [])
                     break
                   case "token":
-                    options.onToken(event.data)
+                    // event.content contiene la letra/token
+                    options.onToken(event.content)
                     break
                   case "error":
-                    options.onError(event.data.message || "Error desconocido")
+                    options.onError(event.message || "Error desconocido")
                     break
                   case "done":
                     options.onComplete()
@@ -165,12 +168,16 @@ export function useChatStream() {
   }
 }
 
-function mapStatus(status: string): AgentStatus {
-  const statusMap: Record<string, AgentStatus> = {
-    thinking: "thinking",
-    searching: "searching",
-    analyzing: "analyzing",
-    generating: "generating",
+function mapStatus(statusMessage: string): AgentStatus {
+  const message = statusMessage.toLowerCase()
+  if (message.includes("buscando") || message.includes("searching")) {
+    return "searching"
   }
-  return statusMap[status.toLowerCase()] || "thinking"
+  if (message.includes("analizando") || message.includes("analyzing")) {
+    return "analyzing"
+  }
+  if (message.includes("generando") || message.includes("generating")) {
+    return "generating"
+  }
+  return "thinking"
 }
