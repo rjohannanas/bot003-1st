@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 import { User, Bot } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { SourceCards } from "./source-cards"
@@ -50,8 +52,10 @@ export function MessageList({ messages, streamingContent, isStreaming }: Message
                 <Bot className="size-4" />
               </div>
               <div className="flex-1 space-y-2">
-                <div className="prose prose-sm dark:prose-invert max-w-none">
-                  <p className="whitespace-pre-wrap">{streamingContent}</p>
+                <div className="prose prose-sm dark:prose-invert max-w-none rounded-lg bg-muted p-3">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {streamingContent}
+                  </ReactMarkdown>
                 </div>
               </div>
             </div>
@@ -85,11 +89,17 @@ function MessageBubble({ message }: { message: Message }) {
           className={cn(
             "prose prose-sm dark:prose-invert max-w-none rounded-lg p-3",
             isUser
-              ? "bg-primary text-primary-foreground"
+              ? "bg-primary text-primary-foreground prose-p:text-primary-foreground prose-strong:text-primary-foreground prose-code:text-primary-foreground"
               : "bg-muted"
           )}
         >
-          <p className="whitespace-pre-wrap m-0">{message.content}</p>
+          {isUser ? (
+            <p className="whitespace-pre-wrap m-0">{message.content}</p>
+          ) : (
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {message.content}
+            </ReactMarkdown>
+          )}
         </div>
 
         {message.sources && message.sources.length > 0 && (
