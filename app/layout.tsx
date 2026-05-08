@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/contexts/auth-context'
 import './globals.css'
 
@@ -8,7 +7,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Bot003 Seteloee - Asistente IA',
+  title: process.env.NEXT_PUBLIC_APP_NAME ? `${process.env.NEXT_PUBLIC_APP_NAME} - Asistente IA` : 'Bot003 Seteloee - Asistente IA',
   description: 'Chat inteligente con RAG para consulta de documentos',
   generator: 'v0.app',
   icons: {
@@ -37,7 +36,6 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
-        {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
   )
