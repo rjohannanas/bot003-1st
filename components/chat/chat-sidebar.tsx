@@ -66,7 +66,7 @@ export function ChatSidebar({
             alt="Bot003 Seteloee"
             width={32}
             height={32}
-            className="rounded-lg"
+            className="rounded-lg-object-cover"
           />
           <div className="flex flex-col">
             <span className="text-sm font-semibold">Bot003 Seteloee</span>
